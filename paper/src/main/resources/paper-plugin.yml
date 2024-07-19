@@ -1,0 +1,4 @@
+name: DiscordBotManager
+version: '${version}'
+main: net.vitacraft.discordbotmanager_paper.DiscordBotManager
+api-version: '1.21'

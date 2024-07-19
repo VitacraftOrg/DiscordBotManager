@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+    id 'eclipse'
+    id "org.jetbrains.gradle.plugin.idea-ext" version "1.0.1"
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+    maven {
+        name = "papermc-repo"
+        url = "https://repo.papermc.io/repository/maven-public/"
+    }
+}
+
+dependencies {
+    compileOnly "com.velocitypowered:velocity-api:3.3.0-SNAPSHOT"
+    implementation "com.github.Carleslc.Simple-YAML:Simple-Yaml:1.8.4"
+    shadow "com.github.Carleslc.Simple-YAML:Simple-Yaml:1.8.4"
+    annotationProcessor "com.velocitypowered:velocity-api:3.3.0-SNAPSHOT"
+}

@@ -7,7 +7,7 @@ plugins {
 }
 
 group = 'net.vitacraft'
-archivesBaseName = 'Discord2FA'
+archivesBaseName = 'DiscordBotManager'
 version = "1.0"
 description = "$ext.plugin_description"
 
@@ -23,15 +23,40 @@ repositories {
     maven { url 'https://repo.papermc.io/repository/maven-public/' }
     maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
     maven { url 'https://repo.spongepowered.org/repository/maven-public/' }
+    maven { url 'https://jitpack.io' }
+    maven { url "https://libraries.minecraft.net" }
+
+    maven {
+        url "https://maven.pkg.github.com/VitacraftOrg/*"
+        credentials {
+            username = 'public'
+            password = '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'
+        }
+    }
 }
 
 dependencies {
     implementation project(':common')
     implementation project(':bukkit')
     implementation project(':fabric')
+    implementation project(':velocity')
+    implementation project(':waterfall')
+    implementation project(':paper')
+
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.2'
     testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
+
+    compileOnly 'com.mojang:brigadier:1.0.18'
+
+    implementation("com.github.Carleslc.Simple-YAML:Simple-Yaml:1.8.4")
+    shadow 'com.github.Carleslc.Simple-YAML:Simple-Yaml:1.8.4'
+
+    implementation("net.dv8tion:JDA:5.0.1")
+    implementation files("${project.projectDir}/libs/JDA-5.0.1-withDependencies-min.jar")
+
+    implementation("net.vitacraft:jmjda:1.2.1")
+    implementation files("${project.projectDir}/libs/jmjda-1.2.1.jar")
 }
 
 processResources {
@@ -44,10 +69,14 @@ shadowJar {
     archiveClassifier.set('')
     dependencies {
         exclude("META-INF/versions/**")
+        include(dependency('com.github.Carleslc.Simple-YAML:Simple-Yaml:1.8.4'))
         include(dependency("${project.group}:common"))
         include(project(':common'))
         include(project(':bukkit'))
         include(project(':fabric'))
+        include(project(':velocity'))
+        include(project(':waterfall'))
+        include(project(':paper'))
     }
 }
 
@@ -66,6 +95,15 @@ subprojects {
 
     repositories {
         mavenCentral()
+        maven { url "https://libraries.minecraft.net" }
+        maven { url 'https://jitpack.io' }
+        maven {
+            url "https://maven.pkg.github.com/VitacraftOrg/*"
+            credentials {
+                username = 'public'
+                password = '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'
+            }
+        }
     }
 
     dependencies {
@@ -80,6 +118,16 @@ subprojects {
         testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
         testImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.2'
         testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
+
+        compileOnly 'com.mojang:brigadier:1.0.18'
+
+        shadow implementation("com.github.Carleslc.Simple-YAML:Simple-Yaml:1.8.4")
+
+        implementation("net.dv8tion:JDA:5.0.1")
+        implementation files("${project.projectDir}/libs/JDA-5.0.1-withDependencies-min.jar")
+
+        implementation("net.vitacraft:jmjda:1.2.1")
+        implementation files("${project.projectDir}/libs/jmjda-1.2.1.jar")
     }
 
     processResources {
@@ -93,4 +141,4 @@ subprojects {
     }
 }
 
-logger.lifecycle("Building ${project.name} ${version} by <AUTHOR>")
+logger.lifecycle("Building ${project.name} ${version} by VitacraftOrg")

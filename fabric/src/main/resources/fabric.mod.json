@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "discord2fa",
+  "id": "discordbotmanager",
   "version": "${version}",
-  "name": "Discord2FA",
+  "name": "DiscordBotManager",
   "icon": "assets/discord2fa/icon.png",
   "description": "${description}",
   "authors": [
@@ -23,14 +23,14 @@
   ],
   "license": "Apache-2.0",
   "contact": {
-    "homepage": "https://modrinth.com/plugin/discord2fa",
-    "repo": "https://github.com/sieadev/Discord2FA",
-    "issues": "https://github.com/sieadev/Discord2FA/issues"
+    "homepage": "https://modrinth.com/plugin/DiscordBotManager",
+    "repo": "https://github.com/VitacraftOrg/DiscordBotManager",
+    "issues": "https://github.com/VitacraftOrg/DiscordBotManager/issues"
   },
   "environment": "server",
   "entrypoints": {
     "server": [
-      "net.vitacraft.discord2fa_fabric.Discord2FA"
+      "net.vitacraft.discordbotmanager.DiscordBotManager"
     ]
   },
   "depends": {

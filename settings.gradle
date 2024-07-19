@@ -5,9 +5,12 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'Discord2FA'
+rootProject.name = 'DiscordBotManager'
 include(
         'common',
         'bukkit',
         'fabric',
+        'velocity',
+        'waterfall',
+        'paper',
 )
