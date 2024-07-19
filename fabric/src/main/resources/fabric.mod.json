@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "id": "discord2fa",
+  "version": "${version}",
+  "name": "Discord2FA",
+  "icon": "assets/discord2fa/icon.png",
+  "description": "${description}",
+  "authors": [
+    {
+      "name": "SieaDev",
+      "contact": {
+        "sources": "https://github.com/sieadev/",
+        "homepage": "https://modrinth.com/user/sieadev/"
+      }
+    },
+    {
+      "name": "Relism",
+      "contact": {
+        "sources": "https://github.com/Relism/",
+        "homepage": "https://modrinth.com/user/Relism/"
+      }
+    }
+  ],
+  "license": "Apache-2.0",
+  "contact": {
+    "homepage": "https://modrinth.com/plugin/discord2fa",
+    "repo": "https://github.com/sieadev/Discord2FA",
+    "issues": "https://github.com/sieadev/Discord2FA/issues"
+  },
+  "environment": "server",
+  "entrypoints": {
+    "server": [
+      "net.vitacraft.discord2fa_fabric.Discord2FA"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=${fabric_loader_version}",
+    "minecraft": ">=${fabric_minecraft_version}",
+    "fabric-api": "*",
+    "serverlibraries": "*"
+  },
+  "suggests": {
+    "bluemap": ">=3.13",
+    "dynmap": ">=3.6",
+    "pl3xmap": "*",
+    "luckperms": ">=5.4",
+    "plan": ">=5.5"
+  },
+  "custom": {
+    "modmenu:api": true
+  }
+}

@@ -1,0 +1,4 @@
+name: "discord2fa"
+version: '1.0'
+main: 'net.vitacraft.discord2fa_bukkit.Discord2FA'
+api-version: '1.20'

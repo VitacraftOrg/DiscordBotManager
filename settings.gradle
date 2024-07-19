@@ -1,0 +1,13 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        maven { url 'https://maven.fabricmc.net/' }
+    }
+}
+
+rootProject.name = 'Discord2FA'
+include(
+        'common',
+        'bukkit',
+        'fabric',
+)
