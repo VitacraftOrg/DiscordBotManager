@@ -56,7 +56,6 @@ dependencies {
     implementation("net.dv8tion:JDA:5.0.1")
     implementation files("${project.projectDir}/libs/JDA-5.0.1-withDependencies-min.jar")
 
-    implementation("net.vitacraft:jmjda:1.2.1")
     implementation files("${project.projectDir}/libs/jmjda-1.2.1.jar")
 }
 
@@ -127,7 +126,6 @@ subprojects {
         implementation("net.dv8tion:JDA:5.0.1")
         implementation files("${project.projectDir}/libs/JDA-5.0.1-withDependencies-min.jar")
 
-        implementation("net.vitacraft:jmjda:1.2.1")
         implementation files("${project.projectDir}/libs/jmjda-1.2.1.jar")
     }
 

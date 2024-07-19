@@ -1,12 +1,11 @@
 package net.vitacraft.discordbotmanager_fabric;
 
 import net.fabricmc.api.DedicatedServerModInitializer;
-import net.vitacraft.discordbotmanager.CommonClass;
+import net.vitacraft.discordbotmanager.Common;
 
 public class DiscordBotManager implements DedicatedServerModInitializer {
     @Override
     public void onInitializeServer() {
-        CommonClass cc = new CommonClass("fabric");
-        cc.testMethod();
+        Common common = new Common("fabric", null);
     }
 }

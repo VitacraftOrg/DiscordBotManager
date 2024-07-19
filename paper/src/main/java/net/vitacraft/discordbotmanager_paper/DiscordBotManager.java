@@ -1,13 +1,13 @@
 package net.vitacraft.discordbotmanager_paper;
 
+import net.vitacraft.discordbotmanager.Common;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class DiscordBotManager extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic :3
-
+        Common common = new Common("paper", null);
     }
 
     @Override
