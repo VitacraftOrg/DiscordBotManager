@@ -1,4 +1,4 @@
-package net.vitacraft.discordbotmanager_paper;
+package net.vitacraft.discordbotmanager_paper.message;
 
 import org.bukkit.plugin.Plugin;
 

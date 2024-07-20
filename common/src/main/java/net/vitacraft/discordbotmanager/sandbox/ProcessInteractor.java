@@ -11,16 +11,19 @@ import java.util.concurrent.ExecutorService;
 
 public class ProcessInteractor {
     private final Process process;
+    private final Sandbox sandbox;
     private OutputStream outputStream;
     private ExecutorService executorService;
     private final List<OutputListener> outputListeners;
 
-    public ProcessInteractor(Process process) {
+    public ProcessInteractor(Sandbox sandbox, Process process) {
         this.process = process;
+        this.sandbox = sandbox;
         this.outputListeners = new ArrayList<>();
+        start();
     }
 
-    public void start() {
+    private void start() {
         outputStream = process.getOutputStream();
         executorService = Executors.newSingleThreadExecutor();
 
@@ -35,7 +38,7 @@ public class ProcessInteractor {
                     }
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                sandbox.setStatus(Status.ERROR);
             }
         });
     }
@@ -58,16 +61,6 @@ public class ProcessInteractor {
     public void unregisterListener(OutputListener listener) {
         synchronized (outputListeners) {
             outputListeners.remove(listener);
-        }
-    }
-
-    public void stop() throws InterruptedException {
-        if (process.isAlive()) {
-            process.destroy();
-            process.waitFor();
-        }
-        if (executorService != null) {
-            executorService.shutdownNow();
         }
     }
 }

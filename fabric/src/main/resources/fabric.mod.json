@@ -30,12 +30,12 @@
   "environment": "server",
   "entrypoints": {
     "server": [
-      "net.vitacraft.discordbotmanager.DiscordBotManager"
+      "net.vitacraft.discordbotmanager_fabric.DiscordBotManager"
     ]
   },
   "depends": {
     "fabricloader": ">=${fabric_loader_version}",
-    "minecraft": ">=${fabric_minecraft_version}",
+    "minecraft": ">=1.20.4",
     "fabric-api": "*",
     "serverlibraries": "*"
   },

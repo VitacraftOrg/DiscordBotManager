@@ -6,7 +6,7 @@ import net.vitacraft.discordbotmanager.constants.MemoryUnit;
 import java.util.Map;
 
 public class ResourceManager {
-    private Common common;
+    private final Common common;
 
     public ResourceManager(Common common){
         this.common = common;

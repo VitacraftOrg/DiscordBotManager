@@ -1,66 +1,115 @@
 package net.vitacraft.discordbotmanager.sandbox;
 
 import lombok.Getter;
+import net.vitacraft.discordbotmanager.Common;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Sandbox {
+    private Common common;
     private Process process;
     @Getter
-    private final String name;
-    @Getter
-    private final String jarPath;
-    @Getter
-    private final List<String> jvmArgs;
+    private Settings settings;
     @Getter
     private Status status;
+    @Getter
+    private Thread thread;
+    private ProcessInteractor processInteractor; // Add member variable for ProcessInteractor
 
-    public Sandbox(String name, String jarPath, List<String> jvmArgs) {
-        this.name = name;
-        this.jarPath = jarPath;
-        this.jvmArgs = jvmArgs;
+    public Sandbox(String name, String jarPath, int ram, List<String> jvmArgs) {
         this.status = Status.STOPPED;
+        this.settings = new Settings(name, jarPath, jvmArgs, ram, false);
     }
 
-    public void start() throws IOException {
-        if (status == Status.RUNNING) {
-            throw new IllegalStateException("JAR process " + name + " is already running!");
-        }
+    public Sandbox(Common common, Settings settings) {
+        this.common = common;
+        this.status = Status.STOPPED;
+        this.settings = settings;
+    }
 
-        List<String> command = new ArrayList<>();
-        command.add("java");
-        command.addAll(jvmArgs);
-        command.add("-jar");
-        command.add(jarPath);
+    public void start() {
+        ProcessBuilder processBuilder = getProcessBuilder();
+        thread = new Thread(() -> {
+            try {
+                process = processBuilder.start();
+                processInteractor = new ProcessInteractor(this, process);
 
-        ProcessBuilder processBuilder = new ProcessBuilder(command);
-        processBuilder.redirectErrorStream(true);
-        process = processBuilder.start();
-        status = Status.RUNNING;
-
-        // Capture output from the JAR
-        new Thread(() -> {
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+                status = Status.RUNNING;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            /*try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    System.out.println("[" + name + "] " + line);
+                    System.out.println("[" + settings.name() + "] " + line);
                 }
             } catch (IOException e) {
                 status = Status.ERROR;
+            }*/
+        });
+
+        thread.start();
+    }
+
+    @NotNull
+    private ProcessBuilder getProcessBuilder() {
+        if (status == Status.RUNNING) {
+            throw new IllegalStateException("JAR process " + settings.name() + " is already running!");
+        }
+
+        File jarFile = new File(settings.jarPath());
+        if (!jarFile.exists()) {
+            throw new IllegalStateException("The JAR file does not exist: " + jarFile.getAbsolutePath());
+        }
+
+        String[] command = {
+                "java",
+                "-Xms" + (settings.ram() / 2) + "M",
+                "-Xmx" + settings.ram() + "M",
+                "-jar",
+                jarFile.getAbsolutePath(),
+                "-nogui"
+        };
+
+        ProcessBuilder builder = new ProcessBuilder(command);
+        File workDir = new File(Common.getWorkDir() + "/" + settings.name() + "/");
+
+        if (!workDir.exists()) {
+            if (!workDir.mkdirs()) {
+                throw new RuntimeException("Failed to create directory: " + workDir.getAbsolutePath());
             }
-        }).start();
+        }
+
+        builder.directory(workDir);
+        return builder;
+    }
+
+    public void setStatus(Status status){
+        this.status = status;
+    }
+
+    public ProcessInteractor getProcessInteractor() {
+        if(status != Status.RUNNING){
+            throw new IllegalStateException("Sandbox not running, can't retrieve it's ProcessInteractor");
+        }
+        if (processInteractor == null) {
+            throw new IllegalStateException("ProcessInteractor is null.");
+        }
+        return processInteractor;
     }
 
     public void stop() throws InterruptedException {
         if (status != Status.RUNNING) {
-            throw new IllegalStateException("JAR process " + name + " is not running!");
+            throw new IllegalStateException("JAR process " + settings.name() + " is not running!");
         }
         process.destroy();
         process.waitFor();
         status = Status.STOPPED;
     }
 }
+

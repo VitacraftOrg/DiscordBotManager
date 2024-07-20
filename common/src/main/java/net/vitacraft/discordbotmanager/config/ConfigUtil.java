@@ -16,7 +16,6 @@ public class ConfigUtil {
     }
 
     public ConfigUtil(String path) {
-        path = path.replace("discordbotmanager", "DiscordBotManager");
         this.file = new File(path);
         try {
             if (!this.file.exists()) {
