@@ -4,6 +4,7 @@ plugins {
     id 'maven-publish'
     id 'org.ajoberstar.grgit' version '5.2.2'
     id 'fabric-loom' version "$fabric_loom_version" apply false
+    id "com.github.node-gradle.node" version "7.0.2"
 }
 
 group = 'net.vitacraft'
@@ -24,15 +25,6 @@ repositories {
     maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
     maven { url 'https://repo.spongepowered.org/repository/maven-public/' }
     maven { url 'https://jitpack.io' }
-    maven { url "https://libraries.minecraft.net" }
-
-    maven {
-        url "https://maven.pkg.github.com/VitacraftOrg/*"
-        credentials {
-            username = 'public'
-            password = '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'
-        }
-    }
 }
 
 dependencies {
@@ -42,6 +34,7 @@ dependencies {
     implementation project(':velocity')
     implementation project(':waterfall')
     implementation project(':paper')
+    implementation project(':webui')
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.2'
@@ -63,6 +56,12 @@ processResources {
     filesMatching(['fabric.mod.json', 'plugin.yml', 'mcmod.info', 'META-INF/mods.toml', 'pack.mcmeta']) {
         expand project.properties
     }
+
+    // Include React build assets in the JAR
+    dependsOn(":webui:npmBuild")
+    from ('webui/build') {
+        into 'webui'
+    }
 }
 
 shadowJar {
@@ -77,11 +76,17 @@ shadowJar {
         include(project(':velocity'))
         include(project(':waterfall'))
         include(project(':paper'))
+        include(project(':webui'))
     }
 }
 
 jar {
     finalizedBy shadowJar
+    dependsOn(":webui:npmBuild")
+    from ('webui/build') {
+        into 'webui'
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 subprojects {
@@ -97,13 +102,6 @@ subprojects {
         mavenCentral()
         maven { url "https://libraries.minecraft.net" }
         maven { url 'https://jitpack.io' }
-        maven {
-            url "https://maven.pkg.github.com/VitacraftOrg/*"
-            credentials {
-                username = 'public'
-                password = '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'
-            }
-        }
     }
 
     dependencies {

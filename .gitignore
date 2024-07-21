@@ -5,11 +5,29 @@ run/
 /.gradle/*
 build.gradle
 
+#fabric
 /fabric/build/
 /fabric/.gradle
 
+#commons
 /bukkit/build/
 /common/build/
+
+#webui
+/webui/node_modules/
+/webui/package-lock.json
+/webui/.gradle/
+/webui/build/
+/webui/.pnp
+/webui/.pnp.js
+/webui.DS_Store
+/webui.env.local
+/webui.env.development.local
+/webui.env.test.local
+/webui.env.production.local
+/webui/npm-debug.log*
+/webui/yarn-debug.log*
+/webui/yarn-error.log*
 
 !**/src/main/**/build/
 !**/src/test/**/build/
