@@ -2,7 +2,7 @@ package net.vitacraft.discordbotmanager_bukkit;
 
 import lombok.Getter;
 import net.vitacraft.discordbotmanager.Common;
-import net.vitacraft.discordbotmanager_bukkit.commands.DBMCommand;
+import net.vitacraft.discordbotmanager_bukkit.commands.JLCommand;
 import net.vitacraft.discordbotmanager_bukkit.message.Messenger;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -18,7 +18,7 @@ public class DiscordBotManager extends JavaPlugin  {
     public void onEnable() {
         plugin = this;
         common = new Common("bukkit", new Messenger(this));
-        Objects.requireNonNull(getCommand("dbm")).setExecutor(new DBMCommand(common.getSandboxManager()));
+        Objects.requireNonNull(getCommand("jl")).setExecutor(new JLCommand(common.getSandboxManager()));
     }
 
     @Override

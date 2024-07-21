@@ -1,6 +1,6 @@
 <div align='center'>
 
-<h1>Discord Bot Manager</h1>
+<h1>JM Jar Loader</h1>
 <p>Deploy Discord Bots on your Minecraft Server seamlessly.</p>
 
 <p>Spigot, Paper, Velocity, Bungeecord, Waterfall and Fabric!</p>
@@ -13,14 +13,17 @@
 ## Setup
 > 1. Add DBM to your server's Plugins/Mods folder
 > 2. Restart/Reload your server
-> 3. Place your Discord Bot's .jar in `.plugins/DiscordBotManager/`
-> 4. Run `/dbm init <file_name> <bot_nickname>` to register your Bot
-> 5. Now you can start your bot with `/dbm start <bot_nickname>` !
+> 3. Place your Jar file in `.plugins/JarLoader/`
+> 4. Run `/jl init <file_name> <box_nickname>` to register your Bot
+> 5. Now you can start your bot with `/jl start <box_nickname>` !
 
 ## Commands
-| Command                                | Action                                      |
-|----------------------------------------|---------------------------------------------|
-| `/dbm init <file_name> <bot_nickname>` | Register a new Bot                          |
-| `/dbm start <bot_nickname>`            | Start a Bot manually                        |
-| `/dbm config <bot_nickname>`           | Open a Bot's config menu                    |
-| `/dbm view <bot_nickname>`             | Open a Bot's Console                        |
+| Command                               | Action                     |
+|---------------------------------------|----------------------------|
+| `/jl help`                            | Show this help message     |
+| `/jl init <file_name> <box_nickname>` | Register a new Sandboxes   |
+| `/jl start <box_nickname>`            | Start a Sandboxes manually |
+| `/jl view <box_nickname>`             | Open a Sandbox's Console   |
+| `/jl stop <box_nickname>`             | Stop a Sandboxes manually  |
+| `/jl list`                            | List all Sandboxes         |
+

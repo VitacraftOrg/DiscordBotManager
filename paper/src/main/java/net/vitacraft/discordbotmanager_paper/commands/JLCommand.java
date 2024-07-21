@@ -8,8 +8,8 @@ import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
-public class DBMCommand extends CommandInterpreter implements CommandExecutor {
-    public DBMCommand(SandboxManager sbm){
+public class JLCommand extends CommandInterpreter implements CommandExecutor {
+    public JLCommand(SandboxManager sbm){
         super(sbm);
     }
 

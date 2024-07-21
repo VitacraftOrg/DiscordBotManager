@@ -3,7 +3,7 @@ package net.vitacraft.discordbotmanager_paper;
 import lombok.Getter;
 import net.vitacraft.discordbotmanager.Common;
 import net.vitacraft.discordbotmanager_paper.message.Messenger;
-import net.vitacraft.discordbotmanager_paper.commands.DBMCommand;
+import net.vitacraft.discordbotmanager_paper.commands.JLCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
@@ -18,7 +18,7 @@ public class DiscordBotManager extends JavaPlugin  {
     public void onEnable() {
         plugin = this;
         common = new Common("paper", new Messenger(this));
-        Objects.requireNonNull(getCommand("dbm")).setExecutor(new DBMCommand(common.getSandboxManager()));
+        Objects.requireNonNull(getCommand("jl")).setExecutor(new JLCommand(common.getSandboxManager()));
     }
 
     @Override

@@ -1,9 +1,9 @@
-name: "DiscordBotManager"
+name: "JarLoader"
 version: '1.0'
 main: 'net.vitacraft.discordbotmanager_bukkit.DiscordBotManager'
 api-version: '1.20'
 authors: [Sieadev, Relism]
 commands:
-  dbm:
-    description: Discord Bot Manager
-    usage: /dbm <action> <sandboxName>
+  jl:
+    description: JM Jar Loader
+    usage: /jl <action> <sandboxName>

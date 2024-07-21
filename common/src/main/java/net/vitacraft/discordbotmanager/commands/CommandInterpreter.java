@@ -18,25 +18,25 @@ public class CommandInterpreter {
     public String interpret(List<String> args) {
         String response = "An unknown error has occurred";
         if (args.isEmpty()) {
-            response = ("§bDBM is running Version 1.0");
+            response = ("§bJM Jar Loader is running Version 1.0");
             return response;
         }
         String name = args.get(1);
         switch (args.getFirst().toLowerCase()) {
             case "help":
                 response = """
-                        §b§lDiscord Bot Manager
-                        §3+------------------------+
-                        §e/dbm help §7- Show this help message
-                        §e/dbm list §7- List all sandboxes
-                        §e/dbm init <file> <name> §7- Initialize a new sandbox
-                        §e/dbm start <name> §7- Start a sandbox
-                        §e/dbm stop <name> §7- Stop a sandbox
-                        §e/dbm view <name> §7- View details of a sandbox""";
+                        §b§lJM Jar Loader
+                        §3+--------------------+
+                        §e/jl help §7- Show this help message
+                        §e/jl list §7- List all sandboxes
+                        §e/jl init <file> <name> §7- Initialize a new sandbox
+                        §e/jl start <name> §7- Start a sandbox
+                        §e/jl stop <name> §7- Stop a sandbox
+                        §e/jl view <name> §7- View details of a sandbox""";
                 break;
             case "list":
                 StringBuilder builder = new StringBuilder();
-                builder.append("§b§lDiscord Bot Manager\n");
+                builder.append("§b§lJM Jar Loader\n");
                 builder.append("§3+--------------------+\n");
                 Map<String, Sandbox> sandboxes = sbm.getAllSandboxes();
                 int count = 0;
@@ -68,20 +68,20 @@ public class CommandInterpreter {
                 if (sbm.startSandbox(name)){
                     response = "§e[" + name + "] §aSuccessfully started";
                 } else {
-                    response = "§b[DBM] §cUnable to find Sandbox with name: §b" + name;
+                    response = "§b[JL] §cUnable to find Sandbox with name: §b" + name;
                 }
                 break;
             case "stop":
                 if (sbm.stopSandbox(name)){
                     response = "§e[" + name + "] §aSuccessfully started";
                 } else {
-                    response = "§b[DBM] §cUnable to find running Sandbox with name: §b" + name;
+                    response = "§b[JL] §cUnable to find running Sandbox with name: §b" + name;
                 }
                 break;
             case "view":
                 throw new IllegalArgumentException("view");
             default:
-                response = "§c/dbm help";
+                response = "§c/jl help";
         }
         return response;
     }
