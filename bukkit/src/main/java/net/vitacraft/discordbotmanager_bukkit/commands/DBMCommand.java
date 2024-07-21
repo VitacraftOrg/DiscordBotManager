@@ -1,29 +1,32 @@
 package net.vitacraft.discordbotmanager_bukkit.commands;
 
-import net.vitacraft.discordbotmanager.Common;
-import net.vitacraft.discordbotmanager.sandbox.ProcessInteractor;
-import net.vitacraft.discordbotmanager.sandbox.Sandbox;
-import net.vitacraft.discordbotmanager.sandbox.Status;
-import net.vitacraft.discordbotmanager_bukkit.DiscordBotManager;
+import net.vitacraft.discordbotmanager.commands.CommandInterpreter;
+import net.vitacraft.discordbotmanager.sandbox.SandboxManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
+import java.util.List;
 
-import java.util.Map;
+public class DBMCommand extends CommandInterpreter implements CommandExecutor {
 
-import java.util.Arrays;
 
-public class DBMCommand implements CommandExecutor {
-
-    private final DiscordBotManager plugin;
-
-    public DBMCommand(DiscordBotManager plugin){
-        this.plugin = plugin;
+    public DBMCommand(SandboxManager sbm){
+        super(sbm);
     }
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
+        String response = "";
+        try {
+            response = interpret(List.of(args));
+        } catch (IllegalArgumentException e){
+            System.out.println("GUI needs to be opend");
+        }
+
+        sender.sendMessage(response);
+
+        /*
         // Check for the correct number of arguments
         if (args.length < 2) {
             sender.sendMessage("Usage: /runcmd <sandboxName> <commandToSend>");
@@ -58,6 +61,8 @@ public class DBMCommand implements CommandExecutor {
             e.printStackTrace();
         }
 
+        return true;
+        */
         return true;
     }
 }

@@ -1,29 +1,29 @@
 package net.vitacraft.discordbotmanager_paper.commands;
 
-import io.papermc.paper.command.brigadier.BasicCommand;
-import net.vitacraft.discordbotmanager.Common;
-import net.vitacraft.discordbotmanager.sandbox.ProcessInteractor;
-import net.vitacraft.discordbotmanager.sandbox.Sandbox;
-import net.vitacraft.discordbotmanager.sandbox.Status;
-import net.vitacraft.discordbotmanager_paper.DiscordBotManager;
+import net.vitacraft.discordbotmanager.commands.CommandInterpreter;
+import net.vitacraft.discordbotmanager.sandbox.SandboxManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
+import java.util.List;
 
-import java.util.Arrays;
-import java.util.Map;
-
-public class RunCmdCommand implements CommandExecutor {
-    private final DiscordBotManager plugin;
-
-    public RunCmdCommand(DiscordBotManager plugin){
-        this.plugin = plugin;
+public class DBMCommand extends CommandInterpreter implements CommandExecutor {
+    public DBMCommand(SandboxManager sbm){
+        super(sbm);
     }
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
-        // Check for the correct number of arguments
+        String response = "";
+        try {
+            response = interpret(List.of(args));
+        } catch (IllegalArgumentException e){
+            System.out.println("GUI needs to be opend");
+        }
+        sender.sendMessage(response);
+        return true;
+        /*
         if (args.length < 2) {
             sender.sendMessage("Usage: /runcmd <sandboxName> <commandToSend>");
             return false;
@@ -56,7 +56,6 @@ public class RunCmdCommand implements CommandExecutor {
             sender.sendMessage("An error occurred while sending the command: " + e.getMessage());
             e.printStackTrace();
         }
-
-        return true;
+         */
     }
 }

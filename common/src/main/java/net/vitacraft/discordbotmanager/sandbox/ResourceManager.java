@@ -12,7 +12,7 @@ public class ResourceManager {
         this.common = common;
     }
 
-    public boolean canFitMemoryQuota(Integer mem){
+    public boolean canFitMemoryQuota(int mem){
         return getAllocatedMem() + mem <= getMaxMem(MemoryUnit.MEGABYTES);
     }
 
@@ -22,7 +22,7 @@ public class ResourceManager {
 
     public long getAllocatedMem() {
         Map<String, Sandbox> sandboxes = this.common.getSandboxManager().getAllSandboxes();
-        Integer allocatedRam = 0;
+        int allocatedRam = 0;
         for (Sandbox sandbox : sandboxes.values()){
             allocatedRam = allocatedRam + sandbox.getSettings().ram();
         }

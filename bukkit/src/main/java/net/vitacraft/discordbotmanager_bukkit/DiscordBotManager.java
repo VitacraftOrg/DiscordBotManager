@@ -6,6 +6,8 @@ import net.vitacraft.discordbotmanager_bukkit.commands.DBMCommand;
 import net.vitacraft.discordbotmanager_bukkit.message.Messenger;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Objects;
+
 public class DiscordBotManager extends JavaPlugin  {
     @Getter
     private static DiscordBotManager plugin;
@@ -16,7 +18,7 @@ public class DiscordBotManager extends JavaPlugin  {
     public void onEnable() {
         plugin = this;
         common = new Common("bukkit", new Messenger(this));
-        getCommand("runcmd").setExecutor(new DBMCommand(this));
+        Objects.requireNonNull(getCommand("dbm")).setExecutor(new DBMCommand(common.getSandboxManager()));
     }
 
     @Override

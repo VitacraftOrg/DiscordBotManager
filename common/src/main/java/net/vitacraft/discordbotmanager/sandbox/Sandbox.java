@@ -1,6 +1,7 @@
 package net.vitacraft.discordbotmanager.sandbox;
 
 import lombok.Getter;
+import lombok.Setter;
 import net.vitacraft.discordbotmanager.Common;
 import org.jetbrains.annotations.NotNull;
 
@@ -8,33 +9,37 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Sandbox {
-    private Common common;
+    @Getter
     private Process process;
     @Getter
     private Settings settings;
+    @Setter
     @Getter
     private Status status;
     @Getter
     private Thread thread;
+    @Getter
+    private double startTime;
     private ProcessInteractor processInteractor; // Add member variable for ProcessInteractor
 
-    public Sandbox(String name, String jarPath, int ram, List<String> jvmArgs) {
-        this.status = Status.STOPPED;
-        this.settings = new Settings(name, jarPath, jvmArgs, ram, false);
-    }
-
-    public Sandbox(Common common, Settings settings) {
-        this.common = common;
+    public Sandbox(Settings settings) {
         this.status = Status.STOPPED;
         this.settings = settings;
+    }
+
+    public Sandbox(String name, String jarPath) {
+        this.status = Status.STOPPED;
+        this.settings = new Settings(name, jarPath, new ArrayList<>(), 256, false);
     }
 
     public void start() {
         ProcessBuilder processBuilder = getProcessBuilder();
         thread = new Thread(() -> {
+            startTime = System.currentTimeMillis();
             try {
                 process = processBuilder.start();
                 processInteractor = new ProcessInteractor(this, process);
@@ -43,14 +48,6 @@ public class Sandbox {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            /*try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    System.out.println("[" + settings.name() + "] " + line);
-                }
-            } catch (IOException e) {
-                status = Status.ERROR;
-            }*/
         });
 
         thread.start();
@@ -87,10 +84,6 @@ public class Sandbox {
 
         builder.directory(workDir);
         return builder;
-    }
-
-    public void setStatus(Status status){
-        this.status = status;
     }
 
     public ProcessInteractor getProcessInteractor() {

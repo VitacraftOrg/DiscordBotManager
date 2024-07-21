@@ -26,10 +26,11 @@ public class SandboxManager {
         Sandbox sandbox = sandboxes.get(name);
         if (sandbox != null) {
             sandbox.start();
+            return true;
         } else {
             messenger.info("No sandbox found with name " + name);
+            return false;
         }
-        return false;
     }
 
     public boolean stopSandbox(String name) {

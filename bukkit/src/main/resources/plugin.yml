@@ -1,9 +1,9 @@
-name: "discordbotmanager"
+name: "DiscordBotManager"
 version: '1.0'
 main: 'net.vitacraft.discordbotmanager_bukkit.DiscordBotManager'
 api-version: '1.20'
-
+authors: [Sieadev, Relism]
 commands:
-  runcmd:
-    description: Sends a command to a specific sandbox.
-    usage: /runcmd <sandboxName> <commandToSend>
+  dbm:
+    description: Discord Bot Manager
+    usage: /dbm <action> <sandboxName>

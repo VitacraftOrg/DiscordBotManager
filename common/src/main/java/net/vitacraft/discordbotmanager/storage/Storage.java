@@ -10,10 +10,8 @@ import java.util.List;
 
 public class Storage {
     private final ConfigUtil configUtil;
-    private final Common common;
 
     public Storage(Common common){
-        this.common = common;
         String folderName = "/";
         if (common.getInstanceStringReference().equals("fabric")) {
             folderName += "mods";
@@ -36,7 +34,6 @@ public class Storage {
     public Sandbox retrieveSandbox(String name){
         ConfigurationSection file = configUtil.getConfig().getConfigurationSection(name);
         return new Sandbox(
-                common,
                 new Settings(
                         name,
                         file.getString("filePath"),

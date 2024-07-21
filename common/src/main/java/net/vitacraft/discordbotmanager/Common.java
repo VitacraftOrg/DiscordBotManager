@@ -40,20 +40,8 @@ public class Common {
         this.sbm = new SandboxManager(messenger, this);
         this.storage = new Storage(this);
         for (Sandbox s : storage.retrieveAllSandboxes()){
+            sbm.registerSandbox(s);
             if (s.getSettings().autostart()){
-                sbm.registerSandbox(s);
-                sbm.startSandbox(s.getSettings().name());
-            }
-        }
-    }
-
-    public Common(String instanceReferenceString, Messenger messenger, boolean debug){
-        this.irs = instanceReferenceString;
-        this.sbm = new SandboxManager(messenger, this);
-        this.storage = new Storage(this);
-        for (Sandbox s : storage.retrieveAllSandboxes()){
-            if (s.getSettings().autostart()){
-                sbm.registerSandbox(s);
                 sbm.startSandbox(s.getSettings().name());
             }
         }
@@ -61,10 +49,6 @@ public class Common {
 
     public void registerSandbox(Sandbox sandbox){
         sbm.registerSandbox(sandbox);
-    }
-
-    public void registerSandbox(String name, String jarPath, List<String> jvmArgs){
-        sbm.registerSandbox(new Sandbox(name, jarPath, 256, jvmArgs));
     }
 
     public SandboxManager getSandboxManager(){
