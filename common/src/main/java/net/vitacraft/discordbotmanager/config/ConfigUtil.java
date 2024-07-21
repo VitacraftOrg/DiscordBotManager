@@ -33,14 +33,11 @@ public class ConfigUtil {
     }
 
 
-    public boolean save() {
+    public void save() {
         try {
             this.config.save(this.file);
-            return true;
-        } catch (Exception e) {
-            return false;
+        } catch (Exception ignored) {
         }
-
     }
 
     public File getFile() {

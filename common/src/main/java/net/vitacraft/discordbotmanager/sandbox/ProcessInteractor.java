@@ -13,7 +13,6 @@ public class ProcessInteractor {
     private final Process process;
     private final Sandbox sandbox;
     private OutputStream outputStream;
-    private ExecutorService executorService;
     private final List<OutputListener> outputListeners;
 
     public ProcessInteractor(Sandbox sandbox, Process process) {
@@ -25,7 +24,7 @@ public class ProcessInteractor {
 
     private void start() {
         outputStream = process.getOutputStream();
-        executorService = Executors.newSingleThreadExecutor();
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
 
         executorService.submit(() -> {
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {

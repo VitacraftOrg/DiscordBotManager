@@ -7,14 +7,11 @@ import net.vitacraft.discordbotmanager.message.Messenger;
 import net.vitacraft.discordbotmanager.sandbox.Sandbox;
 import net.vitacraft.discordbotmanager.sandbox.SandboxManager;
 import net.vitacraft.discordbotmanager.storage.Storage;
-
 import java.io.File;
-import java.util.List;
 
 public class Common {
     private final String irs;
     private final SandboxManager sbm;
-    private final Storage storage;
     @Getter
     private static File workDir;
 
@@ -38,7 +35,7 @@ public class Common {
         cu.save();
         this.irs = instanceReferenceString;
         this.sbm = new SandboxManager(messenger, this);
-        this.storage = new Storage(this);
+        Storage storage = new Storage(this);
         for (Sandbox s : storage.retrieveAllSandboxes()){
             sbm.registerSandbox(s);
             if (s.getSettings().autostart()){
@@ -47,26 +44,12 @@ public class Common {
         }
     }
 
-    public void registerSandbox(Sandbox sandbox){
-        sbm.registerSandbox(sandbox);
-    }
-
     public SandboxManager getSandboxManager(){
         return sbm;
     }
 
     public String getInstanceStringReference(){
         return irs;
-    }
-
-    public boolean toggleSandbox(String name, boolean action){
-        boolean success;
-        if (action){
-            success = sbm.startSandbox(name);
-        } else {
-            success = sbm.stopSandbox(name);
-        }
-        return success;
     }
 
     public void shutdown(){

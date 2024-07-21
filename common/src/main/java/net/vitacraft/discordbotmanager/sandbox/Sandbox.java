@@ -4,13 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import net.vitacraft.discordbotmanager.Common;
 import org.jetbrains.annotations.NotNull;
-
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Sandbox {
     @Getter
@@ -24,7 +20,7 @@ public class Sandbox {
     private Thread thread;
     @Getter
     private double startTime;
-    private ProcessInteractor processInteractor; // Add member variable for ProcessInteractor
+    private ProcessInteractor processInteractor;
 
     public Sandbox(Settings settings) {
         this.status = Status.STOPPED;
@@ -55,23 +51,7 @@ public class Sandbox {
 
     @NotNull
     private ProcessBuilder getProcessBuilder() {
-        if (status == Status.RUNNING) {
-            throw new IllegalStateException("JAR process " + settings.name() + " is already running!");
-        }
-
-        File jarFile = new File(settings.jarPath());
-        if (!jarFile.exists()) {
-            throw new IllegalStateException("The JAR file does not exist: " + jarFile.getAbsolutePath());
-        }
-
-        String[] command = {
-                "java",
-                "-Xms" + (settings.ram() / 2) + "M",
-                "-Xmx" + settings.ram() + "M",
-                "-jar",
-                jarFile.getAbsolutePath(),
-                "-nogui"
-        };
+        String[] command = getStrings();
 
         ProcessBuilder builder = new ProcessBuilder(command);
         File workDir = new File(Common.getWorkDir() + "/" + settings.name() + "/");
@@ -84,6 +64,26 @@ public class Sandbox {
 
         builder.directory(workDir);
         return builder;
+    }
+
+    private String @NotNull [] getStrings() {
+        if (status == Status.RUNNING) {
+            throw new IllegalStateException("JAR process " + settings.name() + " is already running!");
+        }
+
+        File jarFile = new File(settings.jarPath());
+        if (!jarFile.exists()) {
+            throw new IllegalStateException("The JAR file does not exist: " + jarFile.getAbsolutePath());
+        }
+
+        return new String[]{
+                "java",
+                "-Xms" + (settings.ram() / 2) + "M",
+                "-Xmx" + settings.ram() + "M",
+                "-jar",
+                jarFile.getAbsolutePath(),
+                "-nogui"
+        };
     }
 
     public ProcessInteractor getProcessInteractor() {

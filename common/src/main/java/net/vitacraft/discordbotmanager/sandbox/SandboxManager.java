@@ -7,12 +7,10 @@ import java.util.Map;
 public class SandboxManager {
     private final Messenger messenger;
     private final Map<String, Sandbox> sandboxes = new HashMap<>();
-    private final Common common;
     private final ResourceManager resourceManager;
 
     public SandboxManager(Messenger messenger, Common common) {
         this.messenger = messenger;
-        this.common = common;
         this.resourceManager = new ResourceManager(common);
     }
 
