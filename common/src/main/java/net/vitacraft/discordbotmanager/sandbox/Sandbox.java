@@ -19,7 +19,7 @@ public class Sandbox {
     private Status status;
     @Getter
     private Thread thread;
-    private ProcessInteractor processInteractor; // Add member variable for ProcessInteractor
+    private ProcessInteractor processInteractor;
 
     public Sandbox(String name, String jarPath, int ram, List<String> jvmArgs) {
         this.status = Status.STOPPED;

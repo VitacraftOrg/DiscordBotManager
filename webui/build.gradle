@@ -1,0 +1,26 @@
+plugins {
+    id 'com.github.node-gradle.node' version '7.0.2'
+}
+
+node {
+    version = '20.9.0'
+    npmVersion = '10.1.0'
+    download = true
+}
+
+task npmBuild(type: NpmTask) {
+    dependsOn npmInstall
+    mustRunAfter jar
+    args = ['run', 'build']
+    inputs.files fileTree('src')
+    inputs.files fileTree('public')
+    inputs.file 'package.json'
+    inputs.file 'package-lock.json'
+    outputs.dir 'build'
+}
+
+clean {
+    delete 'build'
+}
+
+assemble.dependsOn npmBuild
