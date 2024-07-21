@@ -1,24 +1,23 @@
-package net.vitacraft.discordbotmanager_bukkit.commands;
+package net.vitacraft.discordbotmanager_paper.commands;
 
+import io.papermc.paper.command.brigadier.BasicCommand;
 import net.vitacraft.discordbotmanager.Common;
 import net.vitacraft.discordbotmanager.sandbox.ProcessInteractor;
 import net.vitacraft.discordbotmanager.sandbox.Sandbox;
 import net.vitacraft.discordbotmanager.sandbox.Status;
-import net.vitacraft.discordbotmanager_bukkit.DiscordBotManager;
+import net.vitacraft.discordbotmanager_paper.DiscordBotManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
 import java.util.Map;
 
-import java.util.Arrays;
-
-public class DBMCommand implements CommandExecutor {
-
+public class RunCmdCommand implements CommandExecutor {
     private final DiscordBotManager plugin;
 
-    public DBMCommand(DiscordBotManager plugin){
+    public RunCmdCommand(DiscordBotManager plugin){
         this.plugin = plugin;
     }
 
@@ -61,4 +60,3 @@ public class DBMCommand implements CommandExecutor {
         return true;
     }
 }
-

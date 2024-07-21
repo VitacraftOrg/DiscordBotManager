@@ -2,3 +2,8 @@ name: DiscordBotManager
 version: '${version}'
 main: net.vitacraft.discordbotmanager_paper.DiscordBotManager
 api-version: '1.20'
+
+commands:
+  runcmd:
+    description: Sends a command to a specific sandbox.
+    usage: /runcmd <sandboxName> <commandToSend>

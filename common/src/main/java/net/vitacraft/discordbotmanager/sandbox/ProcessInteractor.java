@@ -31,6 +31,8 @@ public class ProcessInteractor {
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
+                    //debug
+                    System.out.println("[" + sandbox.getSettings().name() + "] " + line);
                     synchronized (outputListeners) {
                         for (OutputListener listener : outputListeners) {
                             listener.onOutput(line);
