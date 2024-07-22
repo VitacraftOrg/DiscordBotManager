@@ -16,11 +16,11 @@ task npmBuild(type: NpmTask) {
     inputs.files fileTree('public')
     inputs.file 'package.json'
     inputs.file 'package-lock.json'
-    outputs.dir 'build'
+    outputs.dir 'dist'
 }
 
 clean {
-    delete 'build'
+    delete 'dist'
 }
 
 assemble.dependsOn npmBuild
