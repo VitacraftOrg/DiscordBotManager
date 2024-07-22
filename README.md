@@ -1,7 +1,7 @@
 <div align='center'>
 
 <h1>JM Jar Loader</h1>
-<p>Deploy Discord Bots on your Minecraft Server seamlessly.</p>
+<p>Deploy JAR files on your Minecraft Server and manage them with an intuitive webui or in-game.</p>
 
 <p>Spigot, Paper, Velocity, Bungeecord, Waterfall and Fabric!</p>
 
