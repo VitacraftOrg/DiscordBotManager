@@ -49,7 +49,9 @@ dependencies {
     implementation("net.dv8tion:JDA:5.0.1")
     implementation files("${project.projectDir}/libs/JDA-5.0.1-withDependencies-min.jar")
 
-    implementation files("${project.projectDir}/libs/jmjda-1.2.1.jar")
+    implementation 'com.sparkjava:spark-core:2.9.4'
+
+    implementation fileTree(dir: 'libs', include: '*.jar')
 }
 
 processResources {
@@ -59,7 +61,7 @@ processResources {
 
     // Include React build assets in the JAR
     dependsOn(":webui:npmBuild")
-    from ('webui/build') {
+    from ('webui/dist') {
         into 'webui'
     }
 }
@@ -83,7 +85,7 @@ shadowJar {
 jar {
     finalizedBy shadowJar
     dependsOn(":webui:npmBuild")
-    from ('webui/build') {
+    from ('webui/dist') {
         into 'webui'
     }
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
@@ -122,9 +124,6 @@ subprojects {
         shadow implementation("com.github.Carleslc.Simple-YAML:Simple-Yaml:1.8.4")
 
         implementation("net.dv8tion:JDA:5.0.1")
-        implementation files("${project.projectDir}/libs/JDA-5.0.1-withDependencies-min.jar")
-
-        implementation files("${project.projectDir}/libs/jmjda-1.2.1.jar")
     }
 
     processResources {

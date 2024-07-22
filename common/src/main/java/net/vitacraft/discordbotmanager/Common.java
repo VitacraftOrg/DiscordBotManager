@@ -6,6 +6,7 @@ import net.vitacraft.discordbotmanager.config.ConfigUtil;
 import net.vitacraft.discordbotmanager.message.Messenger;
 import net.vitacraft.discordbotmanager.sandbox.Sandbox;
 import net.vitacraft.discordbotmanager.sandbox.SandboxManager;
+import net.vitacraft.discordbotmanager.server.Server;
 import net.vitacraft.discordbotmanager.storage.Storage;
 import java.io.File;
 
@@ -15,7 +16,7 @@ public class Common {
     @Getter
     private static File workDir;
 
-    public Common(String instanceReferenceString,@NonNull Messenger messenger){
+    public Common(String instanceReferenceString, @NonNull Messenger messenger){
         String folderName = "/";
         if (instanceReferenceString.equals("fabric")) {
             folderName += "mods";
@@ -42,6 +43,9 @@ public class Common {
                 sbm.startSandbox(s.getSettings().name());
             }
         }
+
+        Server server = new Server(this, "/webui", 4002);
+        server.start();
     }
 
     public SandboxManager getSandboxManager(){
