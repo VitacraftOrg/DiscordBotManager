@@ -18,6 +18,8 @@ build.gradle
 /webui/package-lock.json
 /webui/.gradle/
 /webui/build/
+/webui/dist/
+/webui/*.tsbuildinfo
 /webui/.pnp
 /webui/.pnp.js
 /webui.DS_Store
@@ -70,3 +72,4 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+/webui/dist/

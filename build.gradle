@@ -49,7 +49,7 @@ dependencies {
     implementation("net.dv8tion:JDA:5.0.1")
     implementation files("${project.projectDir}/libs/JDA-5.0.1-withDependencies-min.jar")
 
-    implementation 'com.sparkjava:spark-core:2.9.4'
+    implementation 'com.google.code.gson:gson:2.11.0'
 
     implementation fileTree(dir: 'libs', include: '*.jar')
 }
@@ -122,7 +122,7 @@ subprojects {
         compileOnly 'com.mojang:brigadier:1.0.18'
 
         shadow implementation("com.github.Carleslc.Simple-YAML:Simple-Yaml:1.8.4")
-
+        implementation 'com.google.code.gson:gson:2.11.0'
         implementation("net.dv8tion:JDA:5.0.1")
     }
 

@@ -2,6 +2,8 @@ package net.vitacraft.discordbotmanager.server;
 
 import com.sun.net.httpserver.HttpServer;
 import net.vitacraft.discordbotmanager.Common;
+import net.vitacraft.discordbotmanager.server.endpoints.GetSandboxes;
+import net.vitacraft.discordbotmanager.server.endpoints.SandboxConsoleSSE;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,8 +34,15 @@ public class Server {
             // Create the HttpServer instance
             httpServer = HttpServer.create(new InetSocketAddress(port), 0);
             httpServer.setExecutor(null);
-            httpServer.start();
             httpServer.createContext("/", createFileHandler(destinationFolderPath));
+
+            RoutesManager routesManager = new RoutesManager(httpServer, common);
+            routesManager.addEndpoint(new GetSandboxes());
+            routesManager.addEndpoint(new SandboxConsoleSSE());
+
+            routesManager.init();
+
+            httpServer.start();
             System.out.println("Server started on port " + port);
         } catch (IOException e) {
             e.printStackTrace();
@@ -46,5 +55,4 @@ public class Server {
             System.out.println("Server stopped");
         }
     }
-
 }
